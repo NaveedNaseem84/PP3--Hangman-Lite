@@ -37,6 +37,21 @@ def get_user_input():
     user_input = input("Enter choice: \n").lower()   
     return user_input
 
+def input_validation(user_input):
+    """
+    Validate user input to not allow 
+    empty or non characters.
+    """
+    #to do: add in check for more than one character!
+    
+    if len(user_input) == 0:
+        print("You need to enter something!")
+        return False
+    elif not user_input.isalpha():
+        print("Invalid: a - z characters only allowed")
+        return False
+    return True
+
 def play_hangman():
     attempts_left = 5 # test value for while loop iteration
     selected_word = choose_random_word()
@@ -44,14 +59,16 @@ def play_hangman():
 
     while attempts_left > 0:
         user_input = get_user_input()
-        if user_input == selected_word:
-            print(f"Well done. You found: {user_input}")
-            print(f"attempts left: {attempts_left}")
-            break
-        else:
-            attempts_left -= 1
-            print ("Try again!")
-            print(f"attempts left: {attempts_left}")
+
+        if input_validation(user_input):
+            if user_input == selected_word:
+                print(f"Well done. You found: {user_input}")
+                print(f"attempts left: {attempts_left}")
+                break            
+            else:
+                attempts_left -= 1
+                print ("Try again!")
+                print(f"attempts left: {attempts_left}")
     if attempts_left == 0:
             print("Game Over!")
         
