@@ -24,26 +24,27 @@ def choose_random_word():
     # https://www.thegamegal.com/wp-content/uploads/2011/11/Pictionary-Words-Medium.pdf
     
     file = open("words.txt", 'r')
-    words = file.read()
+    words = file.read().lower()
     word_list = words.split("\n")
     file.close()
-    choose_word = random.choice(word_list)
-    print(f"Random word: {choose_word}")
+    choose_word = random.choice(word_list)   
+    return choose_word
 
 def get_user_input():
     """
     Recieve and return user input
     """
-    user_input = input("Enter choice: \n")   
+    user_input = input("Enter choice: \n").lower()   
     return user_input
 
 def play_hangman():
     attempts_left = 5 # test value for while loop iteration
-    word ="turtle" # test word
+    selected_word = choose_random_word()
+    print(f"Selected word: {selected_word}")
 
     while attempts_left > 0:
         user_input = get_user_input()
-        if user_input == word:
+        if user_input == selected_word:
             print(f"Well done. You found: {user_input}")
             print(f"attempts left: {attempts_left}")
             break
@@ -78,5 +79,5 @@ def play_hangman():
 
 play_hangman()
 #display_instructions()
-#choose_random_word()
+
 
