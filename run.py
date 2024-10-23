@@ -1,5 +1,9 @@
 import random
 
+# code to import from file adapted from the CI love sandwiches project
+# and will be referenced accordingly in readme.md
+# used in display_instructions and choose_random_word functions below
+
 def display_instructions():
     """
     Instructions for the game read in from the
@@ -26,13 +30,34 @@ def choose_random_word():
     choose_word = random.choice(word_list)
     print(f"Random word: {choose_word}")
 
+def get_user_input():
+    """
+    Recieve and return user input
+    """
+    user_input = input("Enter choice: \n")   
+    return user_input
+
+def play_hangman():
+    attempts_left = 5 # test value for while loop iteration
+    word ="turtle" # test word
+
+    while attempts_left > 0:
+        user_input = get_user_input()
+        if user_input == word:
+            print(f"Well done. You found: {user_input}")
+            print(f"attempts left: {attempts_left}")
+            break
+        else:
+            attempts_left -= 1
+            print ("Try again!")
+            print(f"attempts left: {attempts_left}")
+    if attempts_left == 0:
+            print("Game Over!")
+        
+
+   
 
 #---pseudo skeleton for game---
-
-#1. Function for random word
-# - import the words from a external file like above?
-# - randomly assign to a variable and return the value
-
 
 #2. function to take input from user
 # - validate so it is only a single letter 
@@ -51,8 +76,7 @@ def choose_random_word():
 
 #5. option to set difficulty
 
-
-
+play_hangman()
 #display_instructions()
-choose_random_word()
+#choose_random_word()
 
