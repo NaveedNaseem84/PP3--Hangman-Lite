@@ -63,13 +63,58 @@ def mask_selected_word(selected_word):
         word_mask.append(letter)   
     return word_mask
 
+def letter_found(user_input, selected_word, masked_word):
+    """
+    loop the update the masked word with the correct one if the 
+    input is matched at that point. notify user that one/more letters
+    was found
+    """
+    letter_count = 0
+    for letter in range(len(selected_word)):
+        if selected_word[letter] == user_input:            
+            masked_word[letter] = user_input
+            letter_count+=1
+    if letter_count > 1:
+        print(f"Nice, you found {letter_count} '{user_input}'s in the word!\n")
+    else:
+        print(f"Well done, you found '{user_input}'\n")            
+                                           
+def letter_not_found(user_input, attempts_left, invalid_input):
+    """
+    If the input doesn't match the masked word, deduct an attempt.
+    Also make a note of the letters tried to let the user know.
+    """
+    attempts_left -= 1
+    print ("Try again!")
+    print(f"attempts left: {attempts_left}")
+    invalid_input.append(user_input)
+    print(f"incorrect guesses: {invalid_input}")      
+    return attempts_left
+
+
+def game_over(selected_word):
+    """
+    notify user game is over
+    """
+    print("Game over")
+    print (f"The word was: {selected_word}")    
+    
+
+def game_won(selected_word, attempts_left):
+    """
+    Summary of when the word has been guessed
+    """
+    print("Well done, you found the word.")
+    print (f"The word was: {selected_word}")
+    print(f"attempts left: {attempts_left}")    
+    
 
 def play_hangman():
     attempts_left = 5 # test value for while loop iteration
     selected_word = choose_random_word()
     duplicate_input = []
     invalid_input = []
-    print(f"Selected word: {selected_word}") #check original word correct against masked word   
+    print(f"Selected word: {selected_word}")    
     masked_word = mask_selected_word(selected_word)    
 
     while attempts_left > 0:
@@ -83,22 +128,16 @@ def play_hangman():
             duplicate_input.append(user_input)
 
             if user_input in selected_word:
-                for letter in range(len(selected_word)):
-                    if selected_word[letter] == user_input:
-                        masked_word[letter] = user_input                      
+                letter_found(user_input, selected_word, masked_word)
                 if masked_word.count('_') == 0:
-                    print("Game won, word found")                                  
-                    break                                                
+                    won = game_won(selected_word, attempts_left)
+                    break                                             
             else:
-                attempts_left -= 1
-                print ("Try again!")
-                print(f"attempts left: {attempts_left}")           
-                invalid_input.append(user_input)
-                print(f"incorrect guesses: {invalid_input}")
+               attempts_left = letter_not_found(user_input, attempts_left, invalid_input)               
            
     if attempts_left == 0:
-            print("Game Over!")
-        
+            lost = game_over(selected_word)
+           
 
    
 
@@ -109,13 +148,13 @@ def play_hangman():
 
 #3. play game function
 # - take the input from the user
-# - compare this to the selected word which has the characters replaced as _ or * till guessed
-# - if the input matches a letter in the word, replace that */_ with input
-# - if input doesn't match, reduce an attempt and let the user know the input isn't in the word
-# - If a repeat input is tried, store this to check and let user know this has already been tried.
-# - If all attempts used up, game over
-# - if word guessed, game won.
-# - run on loop till either word guessed or attempts over
+# - compare this to the selected word which has the characters replaced as _ or * till guessed - done
+# - if the input matches a letter in the word, replace that */_ with input - done. (decide if _ works better or *)
+# - if input doesn't match, reduce an attempt and let the user know the input isn't in the word - done
+# - If a repeat input is tried, store this to check and let user know this has already been tried.- done
+# - If all attempts used up, game over - done
+# - if word guessed, game won.- done
+# - run on loop till either word guessed or attempts over - done
 
 #4. option to play again on game won or game over.
 
