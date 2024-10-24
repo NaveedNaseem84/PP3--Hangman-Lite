@@ -34,7 +34,7 @@ def get_user_input():
     """
     Recieve and return user input
     """
-    user_input = input("Enter choice: \n").lower()   
+    user_input = input("Your choice: \n").lower()   
     return user_input
 
 def input_validation(user_input):
@@ -63,7 +63,7 @@ def mask_selected_word(selected_word):
         word_mask.append(letter)   
     return word_mask
 
-def letter_found(user_input, selected_word, masked_word):
+def letter_found(user_input, selected_word, masked_word, invalid_input):
     """
     loop the update the masked word with the correct one if the 
     input is matched at that point. notify user that one/more letters
@@ -78,6 +78,7 @@ def letter_found(user_input, selected_word, masked_word):
         print(f"Nice, you found {letter_count} '{user_input}'s in the word!\n")
     else:
         print(f"Well done, you found '{user_input}'\n")            
+    print(f"incorrect guesses: {invalid_input}") 
                                            
 def letter_not_found(user_input, attempts_left, invalid_input):
     """
@@ -96,17 +97,22 @@ def game_over(selected_word):
     """
     notify user game is over
     """
-    print("Game over")
-    print (f"The word was: {selected_word}")    
+    print("==============================================")
+    print("               G A M E  O V E R ")
+    print("                Attempts left: 0")
+    print(f"              The word was: {selected_word}")    
+    print("==============================================")    
     
 
 def game_won(selected_word, attempts_left):
     """
     Summary of when the word has been guessed
     """
-    print("Well done, you found the word.")
-    print (f"The word was: {selected_word}")
-    print(f"attempts left: {attempts_left}")    
+    print("===============================================")
+    print("             W E L L  D O N E !")
+    print(f"             Attempts left: {attempts_left}")
+    print(f"            The word was: {selected_word}")    
+    print("===============================================")    
     
 
 def play_hangman():
@@ -114,11 +120,16 @@ def play_hangman():
     selected_word = choose_random_word()
     duplicate_input = []
     invalid_input = []
-    print(f"Selected word: {selected_word}")    
+    print("========================")
+    print("Welcome to Hangman Lite")
+    print("========================\n")
+    print("When you are ready, enter a letter.\n")
+        
     masked_word = mask_selected_word(selected_word)    
 
     while attempts_left > 0:
-        print(f"masked word: {masked_word}")
+        print(f"letters: {len(selected_word)}\n")
+        print(" ".join(masked_word)+"\n")
         user_input = get_user_input()
 
         if input_validation(user_input):
@@ -128,7 +139,7 @@ def play_hangman():
             duplicate_input.append(user_input)
 
             if user_input in selected_word:
-                letter_found(user_input, selected_word, masked_word)
+                letter_found(user_input, selected_word, masked_word, invalid_input)
                 if masked_word.count('_') == 0:
                     won = game_won(selected_word, attempts_left)
                     break                                             
