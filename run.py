@@ -52,15 +52,36 @@ def input_validation(user_input):
         return False
     return True
 
+def mask_selected_word(selected_word):
+    """
+    replace all the letters in the selected word
+    with _ ready to be guessed.
+    """
+    word_mask = []
+    for letter in selected_word:
+        letter = letter.replace(letter, '_')   
+        word_mask.append(letter)   
+    return word_mask
+
+
 def play_hangman():
     attempts_left = 5 # test value for while loop iteration
     selected_word = choose_random_word()
-    print(f"Selected word: {selected_word}")
+    duplicate_values = []
+    print(f"Selected word: {selected_word}") #check original word correct against masked word
+    print(f"word length: {len(selected_word)}") # check original length same as masked word 
+    masked_word = mask_selected_word(selected_word)
+    print(f"masked word: {masked_word}") #check mask correct against selected word
+    print(f"mask length: {len(masked_word)}") # check length same as selected word 
 
     while attempts_left > 0:
         user_input = get_user_input()
 
         if input_validation(user_input):
+            if user_input in duplicate_values:
+                print(f"'{user_input}' has already been tried")
+                continue
+            
             if user_input == selected_word:
                 print(f"Well done. You found: {user_input}")
                 print(f"attempts left: {attempts_left}")
@@ -69,6 +90,9 @@ def play_hangman():
                 attempts_left -= 1
                 print ("Try again!")
                 print(f"attempts left: {attempts_left}")
+                if user_input not in duplicate_values:
+                    duplicate_values.append(user_input)
+                    print(f"letters tried: {duplicate_values}")
     if attempts_left == 0:
             print("Game Over!")
         
