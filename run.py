@@ -67,32 +67,35 @@ def mask_selected_word(selected_word):
 def play_hangman():
     attempts_left = 5 # test value for while loop iteration
     selected_word = choose_random_word()
-    duplicate_values = []
-    print(f"Selected word: {selected_word}") #check original word correct against masked word
-    print(f"word length: {len(selected_word)}") # check original length same as masked word 
-    masked_word = mask_selected_word(selected_word)
-    print(f"masked word: {masked_word}") #check mask correct against selected word
-    print(f"mask length: {len(masked_word)}") # check length same as selected word 
+    duplicate_input = []
+    invalid_input = []
+    print(f"Selected word: {selected_word}") #check original word correct against masked word   
+    masked_word = mask_selected_word(selected_word)    
 
     while attempts_left > 0:
+        print(f"masked word: {masked_word}")
         user_input = get_user_input()
 
         if input_validation(user_input):
-            if user_input in duplicate_values:
-                print(f"'{user_input}' has already been tried")
-                continue
-            
-            if user_input == selected_word:
-                print(f"Well done. You found: {user_input}")
-                print(f"attempts left: {attempts_left}")
-                break            
+            if user_input in duplicate_input:
+                print(f"'{user_input}' has already been tried")                               
+                continue            
+            duplicate_input.append(user_input)
+
+            if user_input in selected_word:
+                for letter in range(len(selected_word)):
+                    if selected_word[letter] == user_input:
+                        masked_word[letter] = user_input                      
+                if masked_word.count('_') == 0:
+                    print("Game won, word found")                                  
+                    break                                                
             else:
                 attempts_left -= 1
                 print ("Try again!")
-                print(f"attempts left: {attempts_left}")
-                if user_input not in duplicate_values:
-                    duplicate_values.append(user_input)
-                    print(f"letters tried: {duplicate_values}")
+                print(f"attempts left: {attempts_left}")           
+                invalid_input.append(user_input)
+                print(f"incorrect guesses: {invalid_input}")
+           
     if attempts_left == 0:
             print("Game Over!")
         
