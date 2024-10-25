@@ -124,6 +124,8 @@ def game_won(selected_word, attempts_left, words_won, words_lost):
    
 
 def reset_game():
+    global words_won
+    global words_lost
     words_won =0
     words_lost = 0
     print("game reset in progress...\n")    
@@ -172,7 +174,10 @@ def play_hangman():
         print(" ".join(masked_word)+"\n")
         user_input = get_user_input()
 
-        if input_validation(user_input):
+        if user_input =="help":
+            display_instructions()
+            continue
+        elif input_validation(user_input):
             if user_input in duplicate_input:
                 print(f"'{user_input}' has already been tried")                               
                 continue            
