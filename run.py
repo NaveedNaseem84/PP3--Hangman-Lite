@@ -101,7 +101,7 @@ def game_over(selected_word):
     print("               G A M E  O V E R ")
     print("                Attempts left: 0")
     print(f"              The word was: {selected_word}")    
-    print("==============================================")    
+    print("==============================================\n")    
     
 
 def game_won(selected_word, attempts_left):
@@ -112,20 +112,43 @@ def game_won(selected_word, attempts_left):
     print("             W E L L  D O N E !")
     print(f"             Attempts left: {attempts_left}")
     print(f"            The word was: {selected_word}")    
-    print("===============================================")    
-    
+    print("===============================================\n")    
+
+def reset_game():
+    print("game reset in progress...\n")
+    print("loading...\n")
+    print("loading...\n")   
+    play_hangman()
+
+def play_again():
+    """
+    Ask the user if they continue playing the current game.
+    If yes, carry on otherwise
+    """
+    # reset place holder for now. Come back to this.
+    print("Carry on playing? y = yes n = no")
+    user_confirm = get_user_input() 
+    while True:           
+        if user_confirm =="y":
+            print("loading...")
+            play_hangman()
+        elif user_confirm =="n":
+            reset_game()
+            break     
+        else:
+             user_confirm = input("Invalid, Carry on playing? y = yes, n = no \n").lower()
 
 def play_hangman():
     attempts_left = 5 # test value for while loop iteration
     selected_word = choose_random_word()
+    masked_word = mask_selected_word(selected_word) 
     duplicate_input = []
     invalid_input = []
     print("========================")
     print("Welcome to Hangman Lite")
     print("========================\n")
     print("When you are ready, enter a letter.\n")
-        
-    masked_word = mask_selected_word(selected_word)    
+    print(f"Word: {selected_word}\n")
 
     while attempts_left > 0:
         print(f"letters: {len(selected_word)}\n")
@@ -137,20 +160,17 @@ def play_hangman():
                 print(f"'{user_input}' has already been tried")                               
                 continue            
             duplicate_input.append(user_input)
-
             if user_input in selected_word:
                 letter_found(user_input, selected_word, masked_word, invalid_input)
                 if masked_word.count('_') == 0:
-                    won = game_won(selected_word, attempts_left)
-                    break                                             
+                    won = game_won(selected_word, attempts_left)                                                             
+                    play_again()
+                    break
             else:
-               attempts_left = letter_not_found(user_input, attempts_left, invalid_input)               
-           
+               attempts_left = letter_not_found(user_input, attempts_left, invalid_input)                 
     if attempts_left == 0:
             lost = game_over(selected_word)
-           
-
-   
+            play_again()
 
 #---pseudo skeleton for game---
 
