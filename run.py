@@ -1,5 +1,8 @@
 import random
 
+words_won = 0
+words_lost = 0
+
 # code to import from file adapted from the CI love sandwiches project
 # and will be referenced accordingly in readme.md
 # used in display_instructions and choose_random_word functions below
@@ -93,31 +96,39 @@ def letter_not_found(user_input, attempts_left, invalid_input):
     return attempts_left
 
 
-def game_over(selected_word):
+def game_over(selected_word, words_won, words_lost):
     """
     notify user game is over
-    """
-    print("==============================================")
-    print("               G A M E  O V E R ")
-    print("                Attempts left: 0")
-    print(f"              The word was: {selected_word}")    
-    print("==============================================\n")    
+    """    
+    print("===============================")
+    print("       G A M E  O V E R        ")
+    print("        Attempts left: 0")
+    print(f"   The word was: {selected_word}")
+    print(f"           Won: {words_won} ")
+    print(f"          Lost: {words_lost} ")     
+    print("===============================\n")
     
 
-def game_won(selected_word, attempts_left):
+def game_won(selected_word, attempts_left, words_won, words_lost):
     """
     Summary of when the word has been guessed
     """
-    print("===============================================")
-    print("             W E L L  D O N E !")
-    print(f"             Attempts left: {attempts_left}")
-    print(f"            The word was: {selected_word}")    
-    print("===============================================\n")    
+    
+    print("===============================")
+    print("      W E L L  D O N E !")
+    print(f"       Attempts left: {attempts_left}")
+    print(f"  The word was: {selected_word}")
+    print(f"          Won: {words_won} ")
+    print(f"         Lost: {words_lost} ")
+    print("==============================\n")
+   
 
 def reset_game():
-    print("game reset in progress...\n")
+    words_won =0
+    words_lost = 0
+    print("game reset in progress...\n")    
     print("loading...\n")
-    print("loading...\n")   
+    print("loading...\n")
     play_hangman()
 
 def play_again():
@@ -126,13 +137,16 @@ def play_again():
     If yes, carry on otherwise
     """
     # reset place holder for now. Come back to this.
+    
     print("Carry on playing? y = yes n = no")
     user_confirm = get_user_input() 
+    
     while True:           
         if user_confirm =="y":
             print("loading...")
             play_hangman()
         elif user_confirm =="n":
+           
             reset_game()
             break     
         else:
@@ -144,6 +158,9 @@ def play_hangman():
     masked_word = mask_selected_word(selected_word) 
     duplicate_input = []
     invalid_input = []
+    global words_won
+    global words_lost
+    
     print("========================")
     print("Welcome to Hangman Lite")
     print("========================\n")
@@ -163,14 +180,16 @@ def play_hangman():
             if user_input in selected_word:
                 letter_found(user_input, selected_word, masked_word, invalid_input)
                 if masked_word.count('_') == 0:
-                    won = game_won(selected_word, attempts_left)                                                             
+                    words_won +=1                                       
+                    game_won(selected_word, attempts_left, words_won, words_lost)                                                             
                     play_again()
                     break
             else:
                attempts_left = letter_not_found(user_input, attempts_left, invalid_input)                 
-    if attempts_left == 0:
-            lost = game_over(selected_word)
-            play_again()
+    if attempts_left == 0:  
+        words_lost += 1              
+        game_over(selected_word, words_won, words_lost)
+        play_again()
 
 #---pseudo skeleton for game---
 
