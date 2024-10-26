@@ -128,11 +128,47 @@ def reset_game():
     global words_lost
     words_won =0
     words_lost = 0
-    print("game reset in progress...\n")    
-    print("loading...\n")
-    print("loading...\n")
+    print("game reset in progress...")    
+    print("loading...")    
+    print("New game loaded")
+    print("========================")
     play_hangman()
 
+def set_difficulty():
+    """
+    Take input 1, 2, 3 and set the difficulty which 
+    sets the number of attempts for the game:
+
+    1 = easy ( 12 attempts)
+    2 = medium (8 attempts)
+    3 = hard (4 attempts)
+    """
+    print("Choose your difficulty:")
+    print("1 = easy")
+    print("2 = medium") 
+    print("3 = hard\n")
+    user_confirm = get_user_input() 
+    
+    while True:           
+        if user_confirm =="1":
+            attempts_left = 12
+            break        
+        elif user_confirm =="2":
+            attempts_left = 8
+            break
+        elif user_confirm =="3":
+            attempts_left = 4   
+            break              
+        else:
+            print("Invalid, choose:")
+            print("1 = easy")
+            print("2 = medium") 
+            print("3 = hard\n")
+            user_confirm = input("Your choice:").lower()
+            
+            continue
+    return attempts_left 
+    
 def play_again():
     """
     Ask the user if they continue playing the current game.
@@ -140,12 +176,13 @@ def play_again():
     """
     # reset place holder for now. Come back to this.
     
-    print("Carry on playing? y = yes n = no")
+    print("Carry on playing? y = yes n = no\n")
     user_confirm = get_user_input() 
     
     while True:           
         if user_confirm =="y":
             print("loading...")
+            print("========================\n")
             play_hangman()
         elif user_confirm =="n":
            
@@ -153,9 +190,10 @@ def play_again():
             break     
         else:
              user_confirm = input("Invalid, Carry on playing? y = yes, n = no \n").lower()
+             continue
 
 def play_hangman():
-    attempts_left = 5 # test value for while loop iteration
+    attempts_left = set_difficulty() # test value for while loop iteration
     selected_word = choose_random_word()
     masked_word = mask_selected_word(selected_word) 
     duplicate_input = []
@@ -164,13 +202,16 @@ def play_hangman():
     global words_lost
     
     print("========================")
-    print("Welcome to Hangman Lite")
-    print("========================\n")
+   # print("Welcome to Hangman Lite")
+    #print("========================\n")
     print("When you are ready, enter a letter.\n")
+    print("Rules can be seen by typing 'help'.\n")
     print(f"Word: {selected_word}\n")
+    print(f"Attempts: {attempts_left}")
 
     while attempts_left > 0:
-        print(f"letters: {len(selected_word)}\n")
+        print(f"letters: {len(selected_word)}")
+        
         print(" ".join(masked_word)+"\n")
         user_input = get_user_input()
 
@@ -214,7 +255,9 @@ def play_hangman():
 #4. option to play again on game won or game over.
 
 #5. option to set difficulty
-
+print("========================")
+print("Welcome to Hangman Lite")
+print("========================\n")
 play_hangman()
 #display_instructions()
 
