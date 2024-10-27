@@ -128,6 +128,7 @@ def reset_game():
     global words_lost
     words_won =0
     words_lost = 0
+    print("\n"*10)
     print("game reset in progress...")    
     print("loading...")    
     print("New game loaded")
@@ -182,7 +183,8 @@ def play_again():
     while True:           
         if user_confirm =="y":
             print("loading...")
-            print("========================\n")
+            print("========================")
+            print("\n"*10)
             play_hangman()
         elif user_confirm =="n":
            
@@ -194,7 +196,7 @@ def play_again():
 
 def play_hangman():
     attempts_left = set_difficulty() # test value for while loop iteration
-    selected_word = choose_random_word()
+    selected_word, hint = choose_random_word().split(":")    
     masked_word = mask_selected_word(selected_word) 
     duplicate_input = []
     invalid_input = []
@@ -211,6 +213,7 @@ def play_hangman():
 
     while attempts_left > 0:
         print(f"letters: {len(selected_word)}")
+        print(f"hint: {hint}")
         
         print(" ".join(masked_word)+"\n")
         user_input = get_user_input()
