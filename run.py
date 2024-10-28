@@ -1,4 +1,5 @@
 import random
+import sys
 
 class Hangman:
     """
@@ -157,6 +158,13 @@ class Hangman:
         print("========================")
         self.play_hangman()
 
+    def quit_game(self):
+        """
+        quit/terminate the application
+        """
+        print("Exiting program...\n")
+        sys.exit(0)
+
     def set_difficulty(self):
         """
         Take input 1, 2, 3 and set the difficulty which 
@@ -193,7 +201,8 @@ class Hangman:
         """
         # reset place holder for now. Come back to this.
     
-        print("Carry on playing? y = yes n = no\n")
+        print("Game complete, choose:\ny = carry on playing \nn = reset \nq = quit\n")
+        
         user_confirm = self.get_user_input()     
         while True:           
             if user_confirm =="y":
@@ -203,8 +212,11 @@ class Hangman:
             elif user_confirm =="n":            
                 self.reset_game()
                 break     
+            elif user_confirm =="q":
+                self.quit_game()
+                break
             else:
-                user_confirm = input("Invalid, Carry on playing? y = yes, n = no \n").lower()
+                user_confirm = input("Invalid, choose:\ny = carry on playing \nn = reset \nq = quit\n").lower()
                 continue
 
     def play_hangman(self):
