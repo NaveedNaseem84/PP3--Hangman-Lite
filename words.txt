@@ -1,11 +1,11 @@
 horse:a type of animal
-door: a type of opening
-song: can be happy or sad
+door:a type of opening
+song:can be happy or sad
 trip:a type of journey, can be long or small
 backbone:provides pivital support
 round:a type of shape
 treasure:argh me mateys, there it is!
-garbage: can be collected once or twice a week
+garbage:can be collected once or twice a week
 park:a good place for pinics or running
 pirate:ahoy there
 ski:a sport on snow/ice

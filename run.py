@@ -78,8 +78,10 @@ def letter_found(user_input, selected_word, masked_word, invalid_input):
             masked_word[letter] = user_input
             letter_count+=1
     if letter_count > 1:
+        print("===============================")
         print(f"Nice, you found {letter_count} '{user_input}'s in the word!\n")
     else:
+        print("===============================")
         print(f"Well done, you found '{user_input}'\n")            
     print(f"incorrect guesses: {invalid_input}") 
                                            
@@ -89,10 +91,11 @@ def letter_not_found(user_input, attempts_left, invalid_input):
     Also make a note of the letters tried to let the user know.
     """
     attempts_left -= 1
-    print ("Try again!")
+    print("===============================")
+    print (f"Try again,'{user_input}' isn't in the word.\n")
     print(f"attempts left: {attempts_left}")
     invalid_input.append(user_input)
-    print(f"incorrect guesses: {invalid_input}")      
+    print(f"incorrect guesses: {invalid_input}\n")      
     return attempts_left
 
 
@@ -128,10 +131,11 @@ def reset_game():
     global words_lost
     words_won =0
     words_lost = 0
-    print("\n"*10)
-    print("game reset in progress...")    
-    print("loading...")    
-    print("New game loaded")
+    print("game reset in progress...\n")    
+    print("loading...\n")    
+    print("New game loaded\n")    
+    print("========================")
+    print("Welcome to Hangman Lite")
     print("========================")
     play_hangman()
 
@@ -145,9 +149,8 @@ def set_difficulty():
     3 = hard (4 attempts)
     """
     print("Choose your difficulty:")
-    print("1 = easy")
-    print("2 = medium") 
-    print("3 = hard\n")
+    print("1 = easy 2 = medium 3 = hard\n")
+    
     user_confirm = get_user_input() 
     
     while True:           
@@ -161,10 +164,7 @@ def set_difficulty():
             attempts_left = 4   
             break              
         else:
-            print("Invalid, choose:")
-            print("1 = easy")
-            print("2 = medium") 
-            print("3 = hard\n")
+            print("Invalid, choose: 1 = easy 2 = medium 3 = hard\n")           
             user_confirm = input("Your choice:").lower()
             
             continue
@@ -182,9 +182,8 @@ def play_again():
     
     while True:           
         if user_confirm =="y":
-            print("loading...")
-            print("========================")
-            print("\n"*10)
+            print("loading next round...")
+            print("========================\n")
             play_hangman()
         elif user_confirm =="n":
            
@@ -203,13 +202,13 @@ def play_hangman():
     global words_won
     global words_lost
     
-    print("========================")
+    print("========================\n")
    # print("Welcome to Hangman Lite")
     #print("========================\n")
     print("When you are ready, enter a letter.\n")
     print("Rules can be seen by typing 'help'.\n")
-    print(f"Word: {selected_word}\n")
-    print(f"Attempts: {attempts_left}")
+    #print(f"Word: {selected_word}\n")
+    print(f"Attempts: {attempts_left}\n")
 
     while attempts_left > 0:
         print(f"letters: {len(selected_word)}")
