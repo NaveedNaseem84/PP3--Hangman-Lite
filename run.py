@@ -165,29 +165,21 @@ class Hangman:
         """
         Take input 1, 2, 3 and set the difficulty which 
         sets the number of attempts for the game:
-
         1 = easy ( 12 attempts)
         2 = medium (8 attempts)
         3 = hard (4 attempts)
         """
+        difficulty_levels = {"1": 12, "2": 8, "3": 4}
         print("Choose your difficulty:")
-        print("1 = easy 2 = medium 3 = hard\n")
-    
+        print("1 = easy 2 = medium 3 = hard\n") 
         user_confirm = self.get_user_input()
         while True:
-            if user_confirm =="1":
-                attempts_left = 12
-                break
-            elif user_confirm =="2":
-                attempts_left = 8
-                break
-            elif user_confirm =="3":
-                attempts_left = 4
-                break
-            else:
+            if user_confirm not in difficulty_levels:
                 print("Invalid, choose: 1 = easy 2 = medium 3 = hard\n")      
                 user_confirm = input("Your choice:").lower()
-                continue
+            else:
+                attempts_left = difficulty_levels[user_confirm]
+                break           
         return attempts_left
     
     def play_again(self):
@@ -196,11 +188,10 @@ class Hangman:
         If yes, carry on otherwise
         """
         # reset place holder for now. Come back to this.
-    
-        print("Game complete, choose:\ny = carry on playing \nr = reset \nq = quit\n")
-        
-        user_confirm = self.get_user_input()
+        print("Game complete.\n")
+        print("Please choose:\ny = carry on playing \nr = reset \nq = quit\n")               
         while True:
+            user_confirm = self.get_user_input()
             if user_confirm =="y":
                 print("loading next round...")
                 print("========================\n")
@@ -212,8 +203,7 @@ class Hangman:
                 self.quit_game()
                 break
             else:
-                user_confirm = input("Invalid, choose:\ny = carry on playing \nr = reset \nq = quit\n").lower()
-                continue
+                print("Invalid, please choose:\ny = carry on playing \nr = reset \nq = quit\n") 
 
     def play_hangman(self):
         
