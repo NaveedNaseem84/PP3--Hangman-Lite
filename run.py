@@ -6,13 +6,11 @@ class Hangman:
     Main Hangman class
     """
     def __init__(self):
+        print("========================")
+        print("Welcome to Hangman Lite")
+        print("========================\n")
         self.words_won = 0
         self.words_lost = 0
-        self.attempts_left = 0
-        self.masked_word = ""
-        self.selected_word = ""
-        self.duplicate_input = []
-        self.invalid_input = []
         
 
 # code to import from file adapted from the CI love sandwiches project
@@ -42,14 +40,14 @@ class Hangman:
         words = file.read().lower()
         word_list = words.split("\n")
         file.close()
-        choose_word = random.choice(word_list)   
+        choose_word = random.choice(word_list)
         return choose_word
 
     def get_user_input(self):
         """
         Recieve and return user input
         """
-        user_input = input("Your choice: \n").lower()   
+        user_input = input("Your choice: \n").lower()
         return user_input
 
     def input_validation(self, user_input):
@@ -67,92 +65,90 @@ class Hangman:
             return False
         return True
 
-    def mask_selected_word(self):
+    def mask_selected_word(self, selected_word):
         """
         replace all the letters in the selected word
         with _ ready to be guessed.
         """
-        self.word_mask = []
-        #for letter in self.selected_word:
-         #   letter = letter.replace(letter, '_')   
-          #  self.word_mask.append(letter)   
-        #return self.word_mask
-        for letter in self.selected_word:
+        word_mask = []
+        for letter in selected_word:
             letter = letter.replace(letter, '_')
-            self.word_mask.append(letter)
-        self.masked_word = self.word_mask
+            word_mask.append(letter)
+        return word_mask
         
 
-    def letter_found(self, user_input):
+    def letter_found(self, user_input, selected_word, masked_word, invalid_input):
         """
         loop the update the masked word with the correct one if the 
         input is matched at that point. notify user that one/more letters
         was found
         """
         letter_count = 0
-        for letter in range(len(self.selected_word)):
-            if self.selected_word[letter] == user_input:            
-                self.masked_word[letter] = user_input
+        for letter in range(len(selected_word)):
+            if selected_word[letter] == user_input:
+                masked_word[letter] = user_input
                 letter_count+=1
         if letter_count > 1:
             print("===============================")
             print(f"Nice, you found {letter_count} '{user_input}'s in the word!\n")
         else:
             print("===============================")
-            print(f"Well done, you found '{user_input}'\n")            
-            print(f"incorrect guesses: {self.invalid_input}") 
+            print(f"Well done, you found '{user_input}'\n")
+            print(f"incorrect guesses: {invalid_input}")
                                            
-    def letter_not_found(self, user_input):
+    def letter_not_found(self, user_input, attempts_left, invalid_input):
         """
         If the input doesn't match the masked word, deduct an attempt.
         Also make a note of the letters tried to let the user know.
         """
-        self.attempts_left -= 1
+        attempts_left -= 1
         print("===============================")
         print (f"Try again,'{user_input}' isn't in the word.\n")
-        print(f"attempts left: {self.attempts_left}")
-        self.invalid_input.append(user_input)
-        print(f"incorrect guesses: {self.invalid_input}\n")      
-        return self.attempts_left
+        print(f"attempts left: {attempts_left}")
+        invalid_input.append(user_input)
+        print(f"incorrect guesses: {invalid_input}\n")
+        return attempts_left
 
 
-    def game_over(self):
+    def game_over(self, selected_word):
         """
-        notify user game is over
-        """ 
-        self.words_lost += 1    
+        notify user game is over and record the 
+        game loss
+        """        
+        self.words_lost += 1
         print("===============================")
         print("       G A M E  O V E R        ")
         print("        Attempts left: 0")
-        print(f"   The word was: {self.selected_word}")
-        print(f"           Won: {self.words_won} ")
-        print(f"          Lost: {self.words_lost} ")     
+        print(f"   The word was: {selected_word}")
+        print(f"           Won: {self.words_won}")
+        print(f"          Lost: {self.words_lost}")     
         print("===============================\n")
     
 
-    def game_won(self):
+    def game_won(self, selected_word, attempts_left):
         """
-        Summary of when the word has been guessed
-        """
-        self.words_won +=1    
+        Summary of when the word has been guessed and
+        record the game win
+        """        
+        self.words_won +=1
         print("===============================")
         print("      W E L L  D O N E !")
-        print(f"       Attempts left: {self.attempts_left}")
-        print(f"  The word was: {self.selected_word}")
-        print(f"          Won: {self.words_won} ")
-        print(f"         Lost: {self.words_lost} ")
+        print(f"       Attempts left: {attempts_left}")
+        print(f"  The word was: {selected_word}")
+        print(f"          Won: {self.words_won}")
+        print(f"         Lost: {self.words_lost}")
         print("==============================\n")
    
 
     def reset_game(self):
         """
-        Rest games won/lost and call the play game function
+        Reset games won/lost and call the play game function
         """    
         self.words_won = 0
         self.words_lost = 0
-        print("game reset in progress...\n")    
-        print("loading...\n")    
-        print("New game loaded\n")    
+        print("game reset in progress...\n")
+        print("loading...\n")
+        print("New game loaded\n")
         print("========================")
         print("Welcome to Hangman Lite")
         print("========================")
@@ -177,22 +173,22 @@ class Hangman:
         print("Choose your difficulty:")
         print("1 = easy 2 = medium 3 = hard\n")
     
-        user_confirm = self.get_user_input()     
-        while True:           
+        user_confirm = self.get_user_input()
+        while True:
             if user_confirm =="1":
-                self.attempts_left = 12
-                break        
+                attempts_left = 12
+                break
             elif user_confirm =="2":
-                self.attempts_left = 8
+                attempts_left = 8
                 break
             elif user_confirm =="3":
-                self.attempts_left = 4   
-                break              
+                attempts_left = 4
+                break
             else:
-                print("Invalid, choose: 1 = easy 2 = medium 3 = hard\n")           
-                user_confirm = input("Your choice:").lower()            
+                print("Invalid, choose: 1 = easy 2 = medium 3 = hard\n")      
+                user_confirm = input("Your choice:").lower()
                 continue
-        return self.attempts_left 
+        return attempts_left
     
     def play_again(self):
         """
@@ -201,96 +197,60 @@ class Hangman:
         """
         # reset place holder for now. Come back to this.
     
-        print("Game complete, choose:\ny = carry on playing \nn = reset \nq = quit\n")
+        print("Game complete, choose:\ny = carry on playing \nr = reset \nq = quit\n")
         
-        user_confirm = self.get_user_input()     
-        while True:           
+        user_confirm = self.get_user_input()
+        while True:
             if user_confirm =="y":
                 print("loading next round...")
                 print("========================\n")
                 self.play_hangman()
-            elif user_confirm =="n":            
+            elif user_confirm =="r":
                 self.reset_game()
-                break     
+                break
             elif user_confirm =="q":
                 self.quit_game()
                 break
             else:
-                user_confirm = input("Invalid, choose:\ny = carry on playing \nn = reset \nq = quit\n").lower()
+                user_confirm = input("Invalid, choose:\ny = carry on playing \nr = reset \nq = quit\n").lower()
                 continue
 
     def play_hangman(self):
-        #attempts_left = set_difficulty() # test value for while loop iteration
-        #selected_word, hint = choose_random_word().split(":")    
-        #masked_word = mask_selected_word(selected_word) 
-        #duplicate_input = []
-       # invalid_input = []
-       # global words_won
-        #global words_lost        
-        self.attempts_left = self.set_difficulty()
-        self.selected_word, self.hint = self.choose_random_word().split(":")
-        self.mask_selected_word()
-        self.invalid_input =[]
-        self.duplicate_input = []
-
         
+        attempts_left = self.set_difficulty()
+        selected_word, hint = self.choose_random_word().split(":")
+        masked_word = self.mask_selected_word(selected_word)
+        invalid_input = []
+        duplicate_input = []        
         print("========================\n")
-        # print("Welcome to Hangman Lite")
-        #print("========================\n")
         print("When you are ready, enter a letter.\n")
         print("Rules can be seen by typing 'help'.\n")
-        print(f"Word: {self.selected_word}\n")
-        print(f"Attempts: {self.attempts_left}\n")
+        print(f"Word: {selected_word}\n")
+        print(f"Attempts: {attempts_left}\n")
 
-        while self.attempts_left > 0:
-            print(f"letters: {len(self.selected_word)}")
-            print(f"hint: {self.hint}")            
-            print(" ".join(self.masked_word)+"\n")
+        while attempts_left > 0:
+            print(f"letters: {len(selected_word)}")
+            print(f"hint: {hint}")
+            print(" ".join(masked_word)+"\n")
             user_input = self.get_user_input()
-
             if user_input =="help":
                 self.display_instructions()
                 continue
             elif self.input_validation(user_input):
-                if user_input in self.duplicate_input:
-                    print(f"'{user_input}' has already been tried")                               
-                    continue            
-                self.duplicate_input.append(user_input)
-                if user_input in self.selected_word:
-                    self.letter_found(user_input)
-                    if self.masked_word.count('_') == 0:                                                             
-                        self.game_won()                                                             
+                if user_input in duplicate_input:
+                    print(f"'{user_input}' has already been tried")
+                    continue
+                duplicate_input.append(user_input)
+                if user_input in selected_word:
+                    self.letter_found(user_input, selected_word, masked_word, invalid_input)
+                    if masked_word.count('_') == 0:
+                        self.game_won(selected_word, attempts_left)                 
                         self.play_again()
                         break
                 else:
-                    self.letter_not_found(user_input)                 
-        #if self.attempts_left == 0:                           
-        self.game_over()
+                    attempts_left = self.letter_not_found(user_input, attempts_left, invalid_input)
+        self.game_over(selected_word)
         self.play_again()
 
-#---pseudo skeleton for game---
-
-#2. function to take input from user
-# - validate so it is only a single letter 
-
-#3. play game function
-# - take the input from the user
-# - compare this to the selected word which has the characters replaced as _ or * till guessed - done
-# - if the input matches a letter in the word, replace that */_ with input - done. (decide if _ works better or *)
-# - if input doesn't match, reduce an attempt and let the user know the input isn't in the word - done
-# - If a repeat input is tried, store this to check and let user know this has already been tried.- done
-# - If all attempts used up, game over - done
-# - if word guessed, game won.- done
-# - run on loop till either word guessed or attempts over - done
-
-#4. option to play again on game won or game over.
-
-#5. option to set difficulty
-print("========================")
-print("Welcome to Hangman Lite")
-print("========================\n")
 game = Hangman()
 game.play_hangman()
-#display_instructions()
-
-
