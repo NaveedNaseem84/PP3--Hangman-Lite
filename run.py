@@ -6,9 +6,9 @@ class Hangman:
     Main Hangman class
     """
     def __init__(self):
-        print("========================")
+        print("="*32)
         print("Welcome to Hangman Lite")
-        print("========================\n")
+        print("="*32)
         self.words_won = 0
         self.words_lost = 0
         
@@ -55,26 +55,18 @@ class Hangman:
         Validate user input to not allow 
         empty or non characters.
         """
-        #to do: add in check for more than one character!
-    
-        if len(user_input) == 0:
-            print("You need to enter something!")
+        if len(user_input) == 1 and user_input.isalpha():
+            return True
+        else:
+            print("Oops, that's not right.")
+            print("You can only enter 1 alphabetical letter!\n")
             return False
-        elif not user_input.isalpha():
-            print("Invalid: a - z characters only allowed")
-            return False
-        return True
 
     def mask_selected_word(self, selected_word):
         """
         replace all the letters in the selected word
         with _ ready to be guessed.
         """
-        #word_mask = []
-        #for letter in selected_word:
-         #   letter = letter.replace(letter, '_')
-          #  word_mask.append(letter)
-        #return word_mask
         selected_word = ['_'] * len (selected_word)
         return selected_word
         
@@ -91,10 +83,10 @@ class Hangman:
                 masked_word[letter] = user_input
                 letter_count+=1
         if letter_count > 1:
-            print("===============================")
+            print("="*32)
             print(f"Nice, you found {letter_count} '{user_input}'s in the word!\n")
         else:
-            print("===============================")
+            print("="*32)
             print(f"Well done, you found '{user_input}'\n")
             print(f"incorrect guesses: {invalid_input}")
                                            
@@ -104,7 +96,7 @@ class Hangman:
         Also make a note of the letters tried to let the user know.
         """
         attempts_left -= 1
-        print("===============================")
+        print("="*32)
         print (f"Try again,'{user_input}' isn't in the word.\n")
         print(f"attempts left: {attempts_left}")
         invalid_input.append(user_input)
@@ -118,13 +110,13 @@ class Hangman:
         game loss
         """        
         self.words_lost += 1
-        print("===============================")
+        print("="*32)
         print("       G A M E  O V E R        ")
         print("        Attempts left: 0")
         print(f"   The word was: {selected_word}")
         print(f"           Won: {self.words_won}")
         print(f"          Lost: {self.words_lost}")     
-        print("===============================\n")
+        print("="*32)
     
 
     def game_won(self, selected_word, attempts_left):
@@ -133,13 +125,13 @@ class Hangman:
         recording the game win
         """        
         self.words_won +=1
-        print("===============================")
+        print("="*32)
         print("      W E L L  D O N E !")
         print(f"       Attempts left: {attempts_left}")
         print(f"  The word was: {selected_word}")
         print(f"          Won: {self.words_won}")
         print(f"         Lost: {self.words_lost}")
-        print("==============================\n")
+        print("="*32)
    
 
     def reset_game(self):
@@ -151,9 +143,9 @@ class Hangman:
         print("game reset in progress...\n")
         print("loading...\n")
         print("New game loaded\n")
-        print("========================")
+        print("="*32)
         print("Welcome to Hangman Lite")
-        print("========================")
+        print("="*32)
         self.play_hangman()
 
     def quit_game(self):
@@ -196,7 +188,7 @@ class Hangman:
             user_confirm = self.get_user_input()
             if user_confirm =="y":
                 print("loading next round...")
-                print("========================\n")
+                print("="*32)
                 self.play_hangman()
             elif user_confirm =="r":
                 self.reset_game()
@@ -214,7 +206,7 @@ class Hangman:
         the total attempts they have and how access other 
         information/functionality
         """
-        print("========================\n")
+        print("="*32)
         print("When you are ready, enter a letter.\n")
         print("Rules: type 'help'.")
         print("Quit the program: type 'quit'.\n")
@@ -228,7 +220,7 @@ class Hangman:
         won
         """
         print(f"letters: {len(selected_word)}")
-        print(f"hint: {hint}")
+        print(f"hint: {hint}\n")
         print(" ".join(masked_word)+"\n")
 
     def special_inputs(self, user_input):
