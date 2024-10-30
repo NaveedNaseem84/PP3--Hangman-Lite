@@ -1,5 +1,23 @@
 import random
 import sys
+import gspread
+from google.oauth2.service_account import Credentials
+
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('hagman_lite_words')
+
+get_words = SHEET.worksheet('words')
+
+#code to configure, connect and retrieve data from google sheet
+# taken from the CI love sandwiches project
+# and will be referenced accordingly in readme.md
 
 class Hangman:
     """
@@ -15,7 +33,7 @@ class Hangman:
 
 # code to import from file adapted from the CI love sandwiches project
 # and will be referenced accordingly in readme.md
-# used in display_instructions and choose_random_word functions below
+# used in display_instructions
 
     def display_instructions(self):
         """
@@ -29,18 +47,22 @@ class Hangman:
 
     def choose_random_word(self):
         """
-        Read in words from words file and assign to list
-        using the new line as the value seperator. Randomly
-        select and return a word from this list.
+        Read in words from google sheet externally, 
+        assigned to a string so it can be formatted to seperate
+        word and hint from : in the play game function
         """
         #source for words: 
         # https://www.thegamegal.com/wp-content/uploads/2011/11/Pictionary-Words-Medium.pdf
     
-        file = open("words.txt", 'r')
-        words = file.read().lower()
-        word_list = words.split("\n")
-        file.close()
-        choose_word = random.choice(word_list)
+        #file = open("words.txt", 'r')
+        #words = file.read().lower()
+        #word_list = words.split("\n")
+        #file.close()
+        #choose_word = random.choice(word_list)     
+
+        words = get_words.get_all_values()           
+        choose_random_word = random.choice(words)        
+        choose_word = choose_random_word[0]
         return choose_word
 
     def get_user_input(self):
@@ -170,7 +192,7 @@ class Hangman:
         while True:
             if user_confirm not in difficulty_levels:
                 print("Invalid, choose: 1 = easy 2 = medium 3 = hard\n")      
-                user_confirm = input("Your choice:").lower()
+                user_confirm = input("Your choice:\n").lower()
             else:
                 attempts_left = difficulty_levels[user_confirm]
                 break           
