@@ -51,17 +51,18 @@ class Hangman():
         Read in words from google sheet externally, 
         assigned to a string so it can be formatted to seperate
         word and hint from : in the play game function
-        """       
-        
+        """
         try:
             print("loading data, please wait ...\n")
             words = get_words.get_all_values()           
             choose_random_word = random.choice(words)        
             choose_word = choose_random_word[0]
+            return choose_word
         except:
-            print("Unable to load data...")    
-        return choose_word
-
+            print("Unable to load data....")
+            print("Please check google sheet setup!")
+            sys.exit(0)                
+            
     def get_user_input(self):
         """
         Recieve and return user input
