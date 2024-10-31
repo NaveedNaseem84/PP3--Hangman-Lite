@@ -51,19 +51,15 @@ class Hangman():
         Read in words from google sheet externally, 
         assigned to a string so it can be formatted to seperate
         word and hint from : in the play game function
-        """
-        #source for words: 
-        # https://www.thegamegal.com/wp-content/uploads/2011/11/Pictionary-Words-Medium.pdf
-    
-        #file = open("words.txt", 'r')
-        #words = file.read().lower()
-        #word_list = words.split("\n")
-        #file.close()
-        #choose_word = random.choice(word_list)     
-
-        words = get_words.get_all_values()           
-        choose_random_word = random.choice(words)        
-        choose_word = choose_random_word[0]
+        """       
+        
+        try:
+            print("loading data, please wait ...\n")
+            words = get_words.get_all_values()           
+            choose_random_word = random.choice(words)        
+            choose_word = choose_random_word[0]
+        except:
+            print("Unable to load data...")    
         return choose_word
 
     def get_user_input(self):
@@ -97,7 +93,7 @@ class Hangman():
             word_mask.append(letter)
         self.masked_word = word_mask
         
-
+    '''
     def letter_found(self, user_input):
         """
         loop the update the masked word with the correct one if the 
@@ -128,6 +124,27 @@ class Hangman():
         print(f"attempts left: {self.attempts_left}")
         self.invalid_input.append(user_input)
         print(f"incorrect guesses: {self.invalid_input}\n")
+        return self.attempts_left
+    '''
+    def process_input_letter(self, user_input):
+        letter_count = 0
+        print("="*32)
+        for letter in range(len(self.selected_word)):
+            if self.selected_word[letter] == user_input:
+                self.masked_word[letter] = user_input
+                letter_count+=1                                    
+        if letter_count > 0:
+            if letter_count > 1:               
+                print(f"You found {letter_count} '{user_input}'s in the word!\n")
+            else:                
+                print(f"Well done, you found '{user_input}'\n")
+                print(f"incorrect guesses: {self.invalid_input}")
+        else:
+            self.attempts_left -= 1            
+            print (f"Try again,'{user_input}' isn't in the word.\n")
+            print(f"attempts left: {self.attempts_left}")
+            self.invalid_input.append(user_input)
+            print(f"incorrect guesses: {self.invalid_input}\n")     
         return self.attempts_left
 
 
@@ -174,7 +191,7 @@ class Hangman():
         print("New game loaded\n")
         print("="*32)
         print("Welcome to Hangman Lite")
-        print("="*32)
+        print("="*32)        
         self.play_hangman()
 
     def quit_game(self):
@@ -217,7 +234,7 @@ class Hangman():
             user_confirm = self.get_user_input()
             if user_confirm =="y":
                 print("loading next round...")
-                print("="*32)
+                print("="*32)                
                 self.play_hangman()
             elif user_confirm =="r":
                 self.reset_game()
@@ -228,7 +245,7 @@ class Hangman():
             else:
                 print("Invalid input.")
                 print("Choose:\ny = carry on playing \nr = reset \nq = quit\n") 
-
+        
 
     def setup_game_info(self):
         """
@@ -288,19 +305,20 @@ class Hangman():
             user_input = self.get_user_input()
             if self.special_inputs(user_input):
                 continue
-            if self.input_validation(user_input):
+            elif self.input_validation(user_input):
                 if user_input in self.duplicate_input:
                     print(f"'{user_input}' has already been tried\n")
                     continue
                 self.duplicate_input.append(user_input)
-                if user_input in self.selected_word:
-                    self.letter_found(user_input)
-                    if self.masked_word.count('_') == 0:
-                        self.game_won()                 
-                        self.play_again()
-                        break
-                else:
-                    self.attempts_left = self.letter_not_found(user_input)
+                self.process_input_letter(user_input)
+                #if user_input in self.selected_word:
+                    #self.letter_found(user_input)
+                if self.masked_word.count('_') == 0:
+                    self.game_won()                 
+                    self.play_again()
+                    break
+                #else:
+                    #self.attempts_left = self.letter_not_found(user_input)
         else:
             self.game_over()
             self.play_again()
