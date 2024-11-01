@@ -66,6 +66,7 @@ If an invalid input is recieved, the player is notfied of this and prompted to t
 
 ![Invalid-input](readme-images/invalid-input.png)
 
+
 Once a valid input has been recieved, the game begins. The player is presented with a word to guess that has been randomly selected along with a hint to guess the word. In addition to this, the player is also made aware of the number of attempts they have to guess the word:
 
 ![new game](readme-images/new-game.png)
@@ -126,36 +127,47 @@ These inputs again are validated to only recieve the correct specified input. If
 
 ### Validation Testing
 
+The site has been tested with the following:
+
+* Python
+   * No errors returned when running the code on the CI Python linter [Code Institute Python Linter.](https://pep8ci.herokuapp.com/)
+
 ### Manual Testing
 
 The following manual testing was carried out to confirm if the game performed as required and results matched the expected output.
 
 | Test  | Test Step/Action                    |Input Type         |Expected                      |Result                                                        | Result|
 | :----:|:------------------------------------|:-----------------:|:-----------------------------------------------------------------------|:-----------------------------------------------|:--------:| 
-| 1     |Enter invalid difficulty             |int/string/symbol  |Error, asked to try again                                               |Invalid input identified. Try again             |Pass      | 
+| 1     |Enter invalid difficulty             |e.g 4/a/?          |Error, asked to try again                                               |Invalid input identified. Try again             |Pass      | 
 | 2     |Enter valid difficulty               |1, 2, 3            |Start game                                                              |Game started                                    |Pass      |
 | 3     |Enter number                         |int                |Validate and inform incorrect input                                     |Input validated correctly - asked to try again  |Pass      |
 | 4     |Enter space                          |space              |validate and inform incorrect input                                     |Input validated correctly - asked to try again  |Pass      |
 | 5     |More than one letter                 |string             |validate and inform incorrect input                                     |Input validated correctly - asked to try again  |Pass      |
 | 6     |letter found                         |string             |update letter(s) in word                                                |Word updated                                    |Pass      |
 | 7     |letter not in word                   |string             |reduce attempt, record letter used                                      |attempt reduced, letter recorded                |Pass      |
-| 8     |word guessed                         |string             |increment won score, summary of game, option to play again, reset, quit |Input validated correctly - asked to try again  |Pass      |
-| 9     |word not guessed/attempts finished   |string             |increment lost score, summary of game, option to play again, reset, quit|Input validated correctly - asked to try again  |Pass      |
+| 8     |word guessed                         |string             |increment won score, summary of game, option to play again, reset, quit |Input validated correctly - options given       |Pass      |
+| 9     |word not guessed/attempts finished   |string             |increment lost score, summary of game, option to play again, reset, quit|Input validated correctly - options given       |Pass      |
 | 10    |play again                           |string: "y"        |load new game, running totals for won/lost                              |new game loaded, totals kept                    |Pass      |
 | 11    |reset game                           |string: "r"        |load new game, reset won/lost totals                                    |new game loaded, totals reset                   |Pass      |
 | 12    |quit game (at end or during)         |string: "q"/ "quit"|terminate the game                                                      |game terminated                                 |Pass      |
 | 13    |enter "help"                         |string: "help"     |show the rules on demand                                                |rules shown whenever typed                      |Pass      |
 
+### API Testing
 
+The API has been tested to ensure that the game works correctly when there is data in the google sheet in the format `word:hint`.
 
+Should there be no data present, the game will sucessfully pick this up and exit:
+
+![Google sheets error](readme-images/google-sheets-error.png)
 
 
 ### Future Developments
 
-There are two potential future developments for this project.
+There are three potential future developments for this project.
 
 1. Expand the difficulty level - generate the complexity of the word/clue based on the difficulty selected.
 2. A scores table showing the top wins with the least attempts used.
+3. Retrieval of the words: should the API fail for any reason, add in option to read them in locally from a text file and would prevent any negative user experience.
 
 ## Site Production, Deployment and Contribution  
 
@@ -169,12 +181,38 @@ The site was created using Gitpod’s VS Code workspace environment with all the
 
 3 `git push` - (changes are pushed out up to the GitHub repository).
 
-The words and clues for the game have been imported using an API for google sheets. This was implemented  using the CI sandwiches project tutorial and is referenced in the "Frameworks, Libraries and Programs Used" below.
-
-
 ### Deployment
 
-The live link to the site can be found here: [Hangman Lite](https://hangman-lite-2cf8212eb558.herokuapp.com/)
+The site was deployed using Heroku. The steps to deploy are as follows:
+
+1. login to Heroku
+2. Select "create new app" 
+3. Create app 
+4. Select "Settings" tab at the top
+5. Scroll down to "Buildpacks" and add **in the following order:**
+    * `heroku/python`
+    * `heroku/nodejs`
+6. Scroll down to "Config Vars" and add the following:
+    * `Key: PORT`
+    * `value: 8000`
+
+**Note:** If you have credentials, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+
+7. Go to the "Deploy" tab at the top
+8. Select "Github" as the Deployment method
+9. Select "Connect to Github"
+10. Search for your GitHub repository and click connect. Once connected, it will show as follows:
+
+![Heroku/github connection](readme-images/heroku-github.png)
+
+11. Scroll down to "Manual deploy" and click "Deploy branch". The app will start to build installing the various packages listed and the dependencies from the `requirements.txt` file. Once complete, click on the "view" button which will take you to the live site:
+
+![sucessful deployment](readme-images/sucessful-deployment.png)
+
+There is also the option to "Enable Automatic Deploys" which will build the app as soon as it is pushed to the GitHub repository and can be used if preferred.
+
+The live link to the site can be found here: [Hangman Lite.](https://hangman-lite-2cf8212eb558.herokuapp.com/)
+
 
 ### Contribution
 
@@ -189,35 +227,99 @@ Github has provided step by step instructions on how to do this [here.](https://
  * Python   
 ### Frameworks, Libraries and Programs Used
 
-* The following librarys were used:
+* #### The following librarys were used:
     * import random
     * import sys
     * import gspread
      from google.oauth2.service_account import Credentials
 
-* The following requirements were defined in the requirements.txt file for API conection to google sheets (also needed for deployment):
+* #### The following requirements were defined in the requirements.txt file for API conection to google sheets (also needed for deployment):
 
-    * cachetools==5.5.0
-    * google-auth==2.35.0
-    * google-auth-oauthlib==1.2.1
-    * gspread==6.1.4
-    * oauthlib==3.2.2
-    * pyasn1==0.6.1
-    * pyasn1_modules==0.4.1
-    * requests-oauthlib==2.0.0
-    * rsa==4.9
+     `cachetools==5.5.0`
 
-* Google sheets: 
+     `google-auth==2.35.0`
 
-    * Google sheets has been used to store the words used in the game and have been imported in using the API. 
+     `google-auth-oauthlib==1.2.1`
+
+     `gspread==6.1.4`
+
+     `oauthlib==3.2.2`
+
+     `pyasn1==0.6.1`
+
+     `pyasn1_modules==0.4.1`
+
+     `requests-oauthlib==2.0.0`
+
+     `rsa==4.9`
+
+* #### Google sheets: 
+
+    * Google sheets has been used to store the words used in the game and have been imported in using an API. 
+
+* #### Git/Gitpod:
+
+  * Gitpod’s workspace was used using the VSCode online editor using git to push to GitHub using version control. 
+
+* #### GitHub:
+
+  * GitHub has been used to store the version control repository for the project.
+
+* #### Heroku:
+
+  * Heroku has been used to build and deploy the project.
+
+* #### Figma: [Figma: The Collaborative Interface Design Tool](https://figma.com/)
+
+  * Figma has been used to create the process map and the UX illustrations of the site.
 
      
 ## Credits
 ### Content
+* The words used for the game were sourced from [The Game Gal.](https://www.thegamegal.com/wp-content/uploads/2011/11/Pictionary-Words-Medium.pdf) The hints were added in manually.
 
+*   The implementation of the google Sheets API was done by following the [Love Sandwiches - Essentials CI Project.](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/071036790a5642f9a6f004f9888b6a45/) and adapted to the naming convention of my project.
+
+    * The code used from the project above is:
+
+      ```
+          import gspread
+          from google.oauth2.service_account import Credentials
+
+          CREDS = Credentials.from_service_account_file('creds.json')
+          SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+          GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+          SHEET = GSPREAD_CLIENT.open('hagman_lite_words')
+          get_words = SHEET.worksheet('words')
+      ```
+* The implementation of the python exit function was done by following the tutorial [Python Exit – How to Use an Exit Function in Python to Stop a Program by Shittu Olumide ](https://www.freecodecamp.org/news/python-exit-how-to-use-an-exit-function-in-python-to-stop-a-program/)
+
+    * The code used from the tutorial is:
+    ```
+    import sys
+    ...
+    sys.exit(0)
+    ```
+* The reading in the rules from a text file was utilised from Code Institute's [Python Essentials: Python I/O Exception Handling > Reading Data From a File.](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+CPP_06_20+3/courseware/e38bbf480aec434f9f00f0bf6285e35c/b2704e108fc94223bd931f672cf929d4/) 
+
+  * The code utilised (and adapted into my project) was:
+    
+    ```
+      file = open("instructions.txt", 'r')
+        instructions = file.read()
+        print(instructions)
+        file.close()
+    ```
 ### General
+* The following resources have been used as a general  guide for python and it's built in functions:
 
+  * [Python Tutor](https://pythontutor.com/visualize.html#mode=edit) 
+  * [W3Schools](https://www.w3schools.com/python/default.asp) 
+  * [PEP 8 – Style Guide for Python Code](https://peps.python.org/pep-0008/)
+  * [Learnpython.org](https://www.learnpython.org/)
+  * [The Python Tutorial - Python Docs](https://docs.python.org/3/tutorial/index.html)
   
 ## Overall Credit
 
+A huge thank you to Code Institute for the learning and lesson material which has been amazing and my fellow students on Slack for their support! 
 ## Personal Summary
