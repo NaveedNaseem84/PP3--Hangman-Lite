@@ -1,5 +1,5 @@
 # Hangman Lite in Python.
-Hangman Lite is an interactive python based game aimed to provide users of all ages with a seamless experience whilst playing hangman - extended to include a difficulty option.
+Hangman Lite is an interactive python-based game aimed to provide users of all ages with a seamless experience whilst playing hangman - extended to include a difficulty option.
 
 The intended purpose is to provide a clean take on the all-time class game, providing responsive feedback with the options to view the rules and quit on demand. Potential uses for the game can be for individuals (children and adults!) who want to improve their spelling or individuals wanting to improve their strategical thinking to name a few. 
 
@@ -13,9 +13,8 @@ As a user, I want:
 * To have the option to select a difficulty level so it can be challenging.
 * The option to see the rules when needed.
 * To see feedback on the choice made (correct/incorrect) in a clear way.
-* A tally to see how many words have been guessed or not.
+* A tally to see how many words have been guessed or lost.
 * The option to continue, reset or quit playing.
-
 
 ### Mind Map: Ideas
 
@@ -39,7 +38,7 @@ Having finalised the UX element completed provided a clear picture of the finish
 ### Pseudo - functions needed (Brainstorm)
 Once the UX element had been completed, I mapped out the python functions needed for the game to perform as needed:
 
-![Pesudo - python functions](readme-images/pseudo-functions.png)
+![ Pseudocode - python functions](readme-images/pseudo-functions.png)
 
 ### Process Map
 The diagram below maps out the processes and the path taken evaluating the state of the game on the inputs made:
@@ -50,7 +49,7 @@ The diagram below maps out the processes and the path taken evaluating the state
 
 ### Features
 
-The main page presents the player(user) with a python console in which the game is ran. The player is welcomed and invited to make a selection on their difficulty level:
+The main page presents the player(user) with a python console in which the game is ran. The player is welcomed and invited to select a difficulty level:
 
 ![welcome - select difficulty](readme-images/welcome-screen.png)
 
@@ -62,12 +61,11 @@ The main page presents the player(user) with a python console in which the game 
 
 3 = hard (4 attempts)
 
-If an invalid input is recieved, the player is notfied of this and prompted to try again:
+If an invalid input is received, the player is notified of this and prompted to try again:
 
-![Invalid-input](readme-images/invalid-input.png)
+![Invalid input](readme-images/invalid-input.png)
 
-
-Once a valid input has been recieved, the game begins. The player is presented with a word to guess that has been randomly selected along with a hint to guess the word. In addition to this, the player is also made aware of the number of attempts they have to guess the word:
+Once a valid input has been received, the game begins. The player is presented with a word to guess that has been randomly selected along with a hint to guess the word. In addition to this, the player is also made aware of the number of attempts available to guess the word:
 
 ![new game](readme-images/new-game.png)
 
@@ -79,9 +77,9 @@ There is also the option to quit which terminates the game:
 
 ![quit](readme-images/quit.png)
 
-**Please note:** on quiting, the "Run program" button would need to be clicked to start the game again.
+**Please note:** on quitting, the "Run program" button would need to be clicked to start the game again.
 
-If the input matches a letter within the word, the user is notfied and the word is updated to show all instances of this matched letter:
+If the input matches a letter within the word, the user is notified, and the word is updated to show all instances of this matched letter:
 
 ![input-matched](readme-images/input-matched.png)
 
@@ -97,12 +95,11 @@ If the attempts are all used up, the game is deemed over. The player is commiser
 
 ![loss](readme-images/lost.png)
 
-Irrespective of a winning or losing, the player has the option to carry on playing, resetting or quitting.
+Irrespective of a winning or losing, the player has the option to carry on playing, resetting, or quitting.
 
 The option to carry on playing will load a new game with a running total of the games won or lost incrementing respectively:
 
 ![play again](readme-images/play-again.png)
-
 
 The option to reset will restart the game and the running totals for win/lost reset. The player is advised of the reset and presented the initial difficulty menu:
 
@@ -110,16 +107,16 @@ The option to reset will restart the game and the running totals for win/lost re
 
 The option to quit will terminate the program as documented above.
 
-These inputs again are validated to only recieve the correct specified input. If this is incorrect, the player will be prompted to try again:
+These inputs again are validated to only receive the correct specified input. If this is incorrect, the player will be prompted to try again:
 
 ![Invalid input on game complete](readme-images/game-complete-invalid.png)
 
 ## Testing
 
 ### Bugs 
-* **Issue 1 (ID 7ae0beb):** The player was able to input upper and lower case letters. This in turn meant that an upper case letter was not the same as a lower case letter therefore being classed as an incorrect guess. For example, 'T' wouldn't be the same as 't'.
+* **Issue 1 (ID 7ae0beb):** The player was able to input upper- and lower-case letters. This in turn meant that an upper-case letter was different from a lower-case letter therefore being classed as an incorrect guess. For example, 'T' would not be the same as 't'.
 
-    * **Fix (ID 23b2c0f):** This was fixed by formatting the input recieved and the random word selected using the .lower() built in function. Once implemented, a re-test found no further issues. 
+    * **Fix (ID 23b2c0f):** This was fixed by formatting the input received and the random word selected using the .lower() built in function. Once implemented, a re-test found no further issues. 
 
 * **Issue 2 (ID 5bf8a81):** The games won/lost running total was not updating on the "play again" selection at the end of a game and were resetting every game.
 
@@ -154,12 +151,11 @@ The following manual testing was carried out to confirm if the game performed as
 
 ### API Testing
 
-The API has been tested to ensure that the game works correctly when there is data in the google sheet in the format `word:hint`.
+The API has been evaluated to ensure that the game works correctly when there is data in the google sheet in the format `word: hint`.
 
-Should there be no data present, the game will sucessfully pick this up and exit:
+Should there be no data present, the game will successfully pick this up and exit:
 
 ![Google sheets error](readme-images/google-sheets-error.png)
-
 
 ### Future Developments
 
@@ -168,6 +164,12 @@ There are three potential future developments for this project.
 1. Expand the difficulty level - generate the complexity of the word/clue based on the difficulty selected.
 2. A scores table showing the top wins with the least attempts used.
 3. Retrieval of the words: should the API fail for any reason, add in option to read them in locally from a text file and would prevent any negative user experience.
+
+## Work load planning
+
+To break the project down, a live task board was utilised. Having this in place from the beginning has ensured that all the requirements from a development view have captured. It has allowed me to successfully transition a task from "to do" right the way through to "done" whilst being able to keep track of any issues that presented a blocker, and tackle them accordingly. A final view of the board can be seen below:
+
+![Live workload board](readme-images/Hangman-Lite-workload.png)
 
 ## Site Production, Deployment and Contribution  
 
@@ -200,26 +202,24 @@ The site was deployed using Heroku. The steps to deploy are as follows:
 
 7. Go to the "Deploy" tab at the top
 8. Select "Github" as the Deployment method
-9. Select "Connect to Github"
+9. Select "Connect to GitHub"
 10. Search for your GitHub repository and click connect. Once connected, it will show as follows:
 
-![Heroku/github connection](readme-images/heroku-github.png)
+![Heroku/GitHub connection](readme-images/heroku-github.png)
 
 11. Scroll down to "Manual deploy" and click "Deploy branch". The app will start to build installing the various packages listed and the dependencies from the `requirements.txt` file. Once complete, click on the "view" button which will take you to the live site:
 
-![sucessful deployment](readme-images/sucessful-deployment.png)
+![Successful deployment](readme-images/sucessful-deployment.png)
 
 There is also the option to "Enable Automatic Deploys" which will build the app as soon as it is pushed to the GitHub repository and can be used if preferred.
 
 The live link to the site can be found here: [Hangman Lite.](https://hangman-lite-2cf8212eb558.herokuapp.com/)
 
-
 ### Contribution
 
-I welcome any contributions/recommendations/changes to the project. To do this, the github repository would need to be forked from github and downloaded locally so it can be worked on. 
+I welcome any contributions/recommendations/changes to the project. To do this, the GitHub repository would need to be forked from GitHub and downloaded locally so it can be worked on. 
 
-Github has provided step by step instructions on how to do this [here.](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#forking-a-repository)
-
+GitHub has provided step by step instructions on how to do this [here.](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#forking-a-repository)
 
 
 ## Technologies and tools Used
@@ -227,13 +227,13 @@ Github has provided step by step instructions on how to do this [here.](https://
  * Python   
 ### Frameworks, Libraries and Programs Used
 
-* #### The following librarys were used:
-    * import random
-    * import sys
-    * import gspread
+* #### The following libraries were used:
+    * Import random
+    * Import sys
+    * Import gspread
      from google.oauth2.service_account import Credentials
 
-* #### The following requirements were defined in the requirements.txt file for API conection to google sheets (also needed for deployment):
+* #### The following requirements were defined in the requirements.txt file for API connection to google sheets (also needed for deployment):
 
      `cachetools==5.5.0`
 
@@ -300,7 +300,7 @@ Github has provided step by step instructions on how to do this [here.](https://
     ...
     sys.exit(0)
     ```
-* The reading in the rules from a text file was utilised from Code Institute's [Python Essentials: Python I/O Exception Handling > Reading Data From a File.](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+CPP_06_20+3/courseware/e38bbf480aec434f9f00f0bf6285e35c/b2704e108fc94223bd931f672cf929d4/) 
+* The reading in the rules from a text file was utilised from Code Institute's [Python Essentials: Python I/O Exception Handling > Reading Data from a File.](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+CPP_06_20+3/courseware/e38bbf480aec434f9f00f0bf6285e35c/b2704e108fc94223bd931f672cf929d4/) 
 
   * The code utilised (and adapted into my project) was:
     
@@ -311,7 +311,7 @@ Github has provided step by step instructions on how to do this [here.](https://
         file.close()
     ```
 ### General
-* The following resources have been used as a general  guide for python and it's built in functions:
+* The following resources have been used as a general guide for python and it's built in functions:
 
   * [Python Tutor](https://pythontutor.com/visualize.html#mode=edit) 
   * [W3Schools](https://www.w3schools.com/python/default.asp) 
@@ -323,3 +323,5 @@ Github has provided step by step instructions on how to do this [here.](https://
 
 A huge thank you to Code Institute for the learning and lesson material which has been amazing and my fellow students on Slack for their support! 
 ## Personal Summary
+
+
