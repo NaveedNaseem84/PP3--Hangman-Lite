@@ -113,7 +113,7 @@ These inputs again are validated to only receive the correct specified input. If
 
 ## Testing
 
-### Bugs 
+### Fixed Bugs 
 * **Issue 1 (ID 7ae0beb):** The player was able to input upper- and lower-case letters. This in turn meant that an upper-case letter was different from a lower-case letter therefore being classed as an incorrect guess. For example, 'T' would not be the same as 't'.
 
     * **Fix (ID 23b2c0f):** This was fixed by formatting the input received and the random word selected using the .lower() built in function. Once implemented, a re-test found no further issues. 

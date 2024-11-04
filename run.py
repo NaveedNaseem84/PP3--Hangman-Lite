@@ -3,6 +3,12 @@ import sys
 import gspread
 from google.oauth2.service_account import Credentials
 
+"""
+Code to configure, connect and retrieve data from google sheet
+taken from the CI love sandwiches project, Used for choose
+random word function and below. Referenced in readme.md
+"""
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -13,33 +19,46 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('hagman_lite_words')
-
 get_words = SHEET.worksheet('words')
 
-# code to configure, connect and retrieve data from google sheet
-# taken from the CI love sandwiches project, Used for choose
-# random word below. Referenced in readme.md
+MASK_CHAR = '_'
+
+VALIDATION_ERROR = """Oops, that's not right.
+You can only enter 1 alphabetical letter!
+Try again below.\n""" 
+
+GAME_INFO = f"""{"="*33}
+When you are ready, enter a letter.\n
+Rules: type 'help'.
+Quit the program: type 'quit'.\n"""
+
+RESET_INFO = f"""{"="*33}
+game reset in progress...\n
+loading...\n
+New game loaded
+{"="*33}
+Welcome to Hangman Lite
+{"="*33}"""
 
 class Hangman():
     """
     Main Hangman class
     """
+
     def __init__(self):
         print("="*32)
         print("Welcome to Hangman Lite")
         print("="*32)
         self.words_won = 0
         self.words_lost = 0
-        
-
-# code to import from file adapted from the CI love sandwiches project
-# referenced in readme.md. 
-#  used in display_instructions
+        self.difficulty_levels = {"1": 12, "2": 8, "3": 4}
 
     def display_instructions(self):
         """
         Instructions for the game read in from the
-        instructions file and displayed
+        instructions file and displayed.
+        Code to import from file adapted from the
+        CI love sandwiches project referenced in readme.md. 
         """
         file = open("instructions.txt", 'r')
         instructions = file.read()
@@ -60,7 +79,7 @@ class Hangman():
             return choose_word
         except:
             print("Unable to load data....")
-            print("Please check google sheet setup!")
+            print("Please try again later...")
             sys.exit(0)                
             
     def get_user_input(self):
@@ -77,25 +96,23 @@ class Hangman():
         if len(user_input) == 1 and user_input.isalpha():
             return True
         else:
-            print("Oops, that's not right.")
-            print("You can only enter 1 alphabetical letter!")
-            print("Try again below.\n")
+            print(VALIDATION_ERROR)
             return False
 
     def mask_selected_word(self):
         """
-        replace all the letters in the selected word
+        Replace all the letters in the selected word
         with _ ready to be guessed.
         """
         word_mask = []
         for letter in self.selected_word:
-            letter = letter.replace(letter, '_')
+            letter = letter.replace(letter, MASK_CHAR)
             word_mask.append(letter)
         self.masked_word = word_mask
     
 
     def process_input_letter(self, user_input):
-        '''
+        """
         loop the word and if:
          - the input matches the word, update with letter
          - let the user know what they have found
@@ -103,7 +120,7 @@ class Hangman():
          - let the user know how many attempts are left
          - record the letters that have been used and not
          in the word.
-        '''
+        """
         letter_count = 0
         print("="*32)
         for letter in range(len(self.selected_word)):
@@ -127,7 +144,7 @@ class Hangman():
 
     def game_over(self):
         """
-        notify user game is over and recording the 
+        Notify user game is over and recording the 
         game loss and letting them know the word
         """        
         self.words_lost += 1
@@ -138,7 +155,7 @@ class Hangman():
         print(f"           Won: {self.words_won}")
         print(f"          Lost: {self.words_lost}")     
         print("="*32)
-    
+        
 
     def game_won(self):
         """
@@ -152,7 +169,7 @@ class Hangman():
         print(f"  The word was: {self.selected_word}")
         print(f"          Won: {self.words_won}")
         print(f"         Lost: {self.words_lost}")
-        print("="*32)
+        print("="*32)      
    
 
     def reset_game(self):
@@ -162,21 +179,18 @@ class Hangman():
         play game function
         """    
         self.words_won = 0
-        self.words_lost = 0
-        print("game reset in progress...\n")
-        print("loading...\n")
-        print("New game loaded\n")
-        print("="*32)
-        print("Welcome to Hangman Lite")
-        print("="*32)        
+        self.words_lost = 0        
+        print(RESET_INFO)        
         self.play_hangman()
 
+    
     def quit_game(self):
         """
-        quit/terminate the application
+        Quit/terminate the application
         """
         print("Exiting program...\n")
         sys.exit(0)
+
 
     def set_difficulty(self):
         """
@@ -185,17 +199,16 @@ class Hangman():
         1 = easy ( 12 attempts)
         2 = medium (8 attempts)
         3 = hard (4 attempts)
-        """
-        difficulty_levels = {"1": 12, "2": 8, "3": 4}
+        """       
         print("Choose your difficulty:")
         print("1 = easy 2 = medium 3 = hard\n") 
         user_confirm = self.get_user_input()
         while True:
-            if user_confirm not in difficulty_levels:
+            if user_confirm not in self.difficulty_levels:
                 print("Invalid, choose: 1 = easy 2 = medium 3 = hard\n")      
                 user_confirm = input("Your choice:\n").lower()
             else:
-                self.attempts_left = difficulty_levels[user_confirm]
+                self.attempts_left = self.difficulty_levels[user_confirm]
                 break           
         return self.attempts_left
     
@@ -228,11 +241,8 @@ class Hangman():
         Quick instructions for the user, letting them know
         the total attempts they have and how to access other 
         information/functionality
-        """
-        print("="*32)
-        print("When you are ready, enter a letter.\n")
-        print("Rules: type 'help'.")
-        print("Quit the program: type 'quit'.\n")
+        """      
+        print(GAME_INFO)
         print(f"Attempts: {self.attempts_left}\n")
 
 
@@ -261,7 +271,7 @@ class Hangman():
 
     def game_setup(self):
         """
-        retrieve the difficulty, word, hint and masked word
+        Retrieve the difficulty, word, hint and masked word
         ready to be initialised in the play_hangman function
         below
         """
@@ -298,7 +308,7 @@ class Hangman():
                     continue
                 self.duplicate_input.append(user_input)
                 self.process_input_letter(user_input)
-                if self.masked_word.count('_') == 0:
+                if self.masked_word.count(MASK_CHAR) == 0:
                     self.game_won()                 
                     self.play_again()
                     break           
