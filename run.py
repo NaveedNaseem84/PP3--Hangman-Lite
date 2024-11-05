@@ -5,10 +5,10 @@ from google.oauth2.service_account import Credentials
 
 """
 Code to configure, connect and retrieve data from google sheet
-taken from the CI love sandwiches project, Used for choose
-random word function and below. Referenced in readme.md
+(below) taken from the CI love sandwiches project, Used
+in choose random word function and below. Lines 12 to 22. 
+Referenced in "credits"section in readme.md
 """
-
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -58,7 +58,8 @@ class Hangman():
         Instructions for the game read in from the
         instructions file and displayed.
         Code to import from file adapted from the
-        CI love sandwiches project referenced in readme.md. 
+        CI love sandwiches project.Referenced in "credits" 
+        section in readme.md. 
         """
         file = open("instructions.txt", 'r')
         instructions = file.read()
@@ -70,6 +71,10 @@ class Hangman():
         Read in words from google sheet externally, 
         assigned to a string so it can be formatted to seperate
         word and hint from : in the play game function
+
+        Code to retrieve data from google sheet
+        taken from the CI love sandwiches project,
+        Referenced in "credits" section in readme.md
         """
         try:
             print("loading data, please wait ...\n")
@@ -186,7 +191,10 @@ class Hangman():
     
     def quit_game(self):
         """
-        Quit/terminate the application
+        Quit/terminate the application.
+        Code to exit below implemented by following the
+        tutorial by Shittu Olumide on Free Code Camp.
+        Referenced in "credits" section in readme.md
         """
         print("Exiting program...\n")
         sys.exit(0)
