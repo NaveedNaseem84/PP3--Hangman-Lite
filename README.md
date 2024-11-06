@@ -131,7 +131,7 @@ The code has been tested with the following:
    
    * The following results were returned:
 
-   ** ADD IN IMAGE AFTER LINTER CHECK*
+      ![Linter results](readme-images/linter-results.png)
 
 ### Manual Testing
 
@@ -171,7 +171,7 @@ There are three potential future developments for this project.
 
 ## Workload Planning
 
-To break the project down, a live task board was utilised. Having this in place from the beginning has ensured that all the requirements from a development view have captured. It has allowed me to successfully transition a task from "to do" right the way through to "done" whilst being able to keep track of any issues that presented a blocker and tackle them accordingly. A final view of the board can be seen below:
+To break the project down, a live task board was utilised. Having this in place from the beginning has ensured that all the requirements from a development view have been captured. It has allowed me to successfully transition a task from "to do" right the way through to "done" whilst being able to keep track of any issues that presented a blocker and tackle them accordingly. A final view of the board can be seen below:
 
 ![Live workload board](readme-images/Hangman-Lite-workload.png)
 
@@ -323,7 +323,7 @@ GitHub has provided step by step instructions on how to do this [here.](https://
     ```
   * This code has been used in the  ```display_instructions``` function.
 
-**Please note**: Referencing comments have been placed in the respected locations for the code used above.
+**Please note**: Referencing comments have been placed in the respected code locations for the code used above.
 ### General
 * The following resources have been used as a general guide for python and it's built in functions:
 
@@ -338,9 +338,9 @@ GitHub has provided step by step instructions on how to do this [here.](https://
 A huge thank you to Code Institute for the learning and lesson material which has been amazing and my fellow students on Slack for their support! 
 ## Personal Summary
 
-As this project was my first exposure to python, it has brought with it a decent learning curve. The detailed content, and the invaluable advice and guidance from an amazing mentor has allowed me to further develop and refine on my coding journey.
+As this project was my first full exposure to indept python, it has brought with it a decent learning curve. The detailed content, and the invaluable advice and guidance from an amazing mentor has allowed me to further develop and refine on my coding journey.
 
-I have endeavoured to implement any guidance given on my previous project with the view of incorporating this as part of my standard coding practice.
+I have endeavoured to implement any guidance given on my previous projects with the view of incorporating this as part of my standard coding practice.
 
 The main take away point from this project has been around the value of breaking the requirements down into smaller manageable tasks on a "to do" list. Having this in place from the beginning has enabled me to build up the project step by step without having to think of what do next. 
 
