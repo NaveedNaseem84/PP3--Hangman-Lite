@@ -1,7 +1,69 @@
 # Hangman Lite in Python.
+
+## Introduction
 Hangman Lite is an interactive python-based game aimed to provide users of all ages with a seamless experience whilst playing hangman - extended to include a difficulty option.
 
-The intended purpose is to provide a clean take on the all-time class game, providing responsive feedback with the options to view the rules and quit on demand. Potential uses for the game can be for individuals (children and adults!) who want to improve their spelling or wanting to improve their strategical thinking or simply just have fun to name a few. 
+The intended purpose is to provide a clean take on the all-time class game, providing responsive feedback with the options to view the rules and quit on demand. Potential uses for the game can be for individuals (children and adults!) who want to improve their spelling and vocabulary, their strategical thinking or simply just have fun to name a few. 
+## Table of Contents
+
+### [User Experience (UX)](#user-experience-ux-1)
+
+* User Stories
+
+* Mind Map: Ideas
+
+* Wireframe Designs 
+
+* UX View
+
+* Pseudo - functions needed (Brainstorm)
+
+* Process Map
+
+### [Main Page](#main-page-1)
+
+* Features
+
+### [Testing](#testing-1)
+
+* Fixed Bugs 
+
+* Validation Testing
+
+* Manual Testing
+
+* API Testing
+
+### [Future Developments](#future-developments-1)
+
+###  [Workload Planning](#workload-planning-1)
+
+###   [Site Production, Deployment and Contribution](#site-production-deployment-and-contribution-1) 
+
+ * Site production
+
+ * Deployment
+
+ * Contribution
+
+### [Technologies and tools Used](#technologies-and-tools-used-1)
+
+* Languages used
+
+* Frameworks, Libraries and Programs Used
+     	
+### [Credits](#credits-1)
+
+* Content
+
+ * General
+  
+ * Overall Credit
+
+### [Personal Summary ](#personal-summary-1)
+
+#
+ 
 
 ## User Experience (UX)
 ### User Stories
@@ -44,6 +106,8 @@ Once the UX element had been completed, I mapped out the python functions needed
 The diagram below maps out the processes and the path taken evaluating the state of the game on the inputs made:
 
 ![process map](readme-images/process-map.png)
+
+[Back to Contents.](#table-of-contents)
 
 ## Main page
 
@@ -111,6 +175,8 @@ These inputs are also validated, the player is notified if there is an input err
 
 ![Invalid input on game complete](readme-images/game-complete-invalid.png)
 
+[Back to Contents.](#table-of-contents)
+
 ## Testing
 
 ### Fixed Bugs 
@@ -155,13 +221,17 @@ The following manual testing was carried out to confirm if the game performed as
 
 ### API Testing
 
-The API has been evaluated to ensure that the game works correctly when there is data in the google sheet in the format `word: hint`.
+The API has been evaluated to ensure that the game works correctly when there is data in the google sheet in the format `word: hint` as shown below:
+
+![Google sheets format](readme-images/google-sheets-format.png)
 
 Should there be no data present, the game will successfully pick this up and exit:
 
 ![Google sheets error](readme-images/google-sheets-error.png)
 
-### Future Developments
+[Back to Contents.](#table-of-contents)
+
+## Future Developments
 
 There are three potential future developments for this project.
 
@@ -174,6 +244,8 @@ There are three potential future developments for this project.
 To break the project down, a live task board was utilised. Having this in place from the beginning has ensured that all the requirements from a development view have been captured. It has allowed me to successfully transition a task from "to do" right the way through to "done" whilst being able to keep track of any issues that presented a blocker and tackle them accordingly. A final view of the board can be seen below:
 
 ![Live workload board](readme-images/Hangman-Lite-workload.png)
+
+[Back to Contents.](#table-of-contents)
 
 ## Site Production, Deployment and Contribution  
 
@@ -219,11 +291,14 @@ There is also the option to "Enable Automatic Deploys" which will build the app 
 
 The live link to the site can be found here: [Hangman Lite.](https://hangman-lite-2cf8212eb558.herokuapp.com/)
 
+
 ### Contribution
 
 I welcome any contributions/recommendations/changes to the project. To do this, the GitHub repository would need to be forked from GitHub and downloaded locally so it can be worked on. 
 
 GitHub has provided step by step instructions on how to do this [here.](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#forking-a-repository)
+
+[Back to Contents.](#table-of-contents)
 
 ## Technologies and tools Used
 ### Languages used
@@ -276,7 +351,8 @@ GitHub has provided step by step instructions on how to do this [here.](https://
 
   * Figma has been used to create the process map and the UX illustrations of the site.
 
-     
+
+[Back to Contents.](#table-of-contents)    
 ## Credits
 ### Content
 * The words used for the game were sourced from [The Game Gal.](https://www.thegamegal.com/wp-content/uploads/2011/11/Pictionary-Words-Medium.pdf) The hints were added in manually.
@@ -333,6 +409,7 @@ GitHub has provided step by step instructions on how to do this [here.](https://
   * [Learnpython.org](https://www.learnpython.org/)
   * [The Python Tutorial - Python Docs](https://docs.python.org/3/tutorial/index.html)
   
+[Back to Contents.](#table-of-contents)
 ## Overall Credit
 
 A huge thank you to Code Institute for the learning and lesson material which has been amazing and my fellow students on Slack for their support! 

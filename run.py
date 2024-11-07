@@ -45,7 +45,7 @@ Welcome to Hangman Lite
 
 class Hangman():
     """
-    Main Hangman class
+    Main Hangman class.
     """
     def __init__(self):
         print(DECOR_LINE)
@@ -75,7 +75,7 @@ class Hangman():
 
         Code to retrieve data from google sheet
         taken from the CI love sandwiches project, (line 82)
-        Referenced in "credits" section in readme.md
+        Referenced in "credits" section in readme.md.
         """
         try:
             print("loading data, please wait ...\n")
@@ -90,14 +90,14 @@ class Hangman():
 
     def get_user_input(self):
         """
-        Recieve and return user input
+        Recieve and return player input as a lower letter.
         """
         user_input = input("Your choice: \n").lower()
         return user_input
 
     def input_validation(self, user_input):
         """
-        Validate user input to only accept 1 letter.
+        Validate player input to only accept 1 letter.
         """
         if len(user_input) == 1 and user_input.isalpha():
             return True
@@ -118,11 +118,11 @@ class Hangman():
 
     def process_input_letter(self, user_input):
         """
-        loop the word and if:
+        Loop the word and if:
          - the input matches the word, update with letter
-         - let the user know what they have found
+         - let the player know what they have found
          - if no match, reduce an attempt.
-         - let the user know how many attempts are left
+         - let the player know how many attempts are left
          - record the letters that have been used and not
          in the word.
         """
@@ -148,8 +148,8 @@ class Hangman():
 
     def game_over(self):
         """
-        Notify user game is over and recording the
-        game loss and letting them know the word
+        Notify player game is over and record the
+        game loss and let them know the word.
         """
         self.words_lost += 1
         print(DECOR_LINE)
@@ -176,9 +176,9 @@ class Hangman():
 
     def reset_game(self):
         """
-        Reset games won/lost variables. let the user know
+        Reset games won/lost variables. let the player know
         that the reset is in progress and finally call the
-        play game function
+        play game function.
         """
         self.words_won = 0
         self.words_lost = 0
@@ -190,7 +190,7 @@ class Hangman():
         Quit/terminate the application.
         Code to exit below implemented by following the
         tutorial by Shittu Olumide on Free Code Camp.
-        Referenced in "credits" section in readme.md
+        Referenced in "credits" section in readme.md.
         """
         print("Exiting program...\n")
         sys.exit(0)
@@ -217,8 +217,8 @@ class Hangman():
 
     def play_again(self):
         """
-        Ask the user if they want continue playing the current game.
-        Provides the option to play again, reset or quit respectively
+        Ask the player if they want continue playing the current game.
+        Provides the option to play again, reset or quit respectively.
         """
         print("Game complete.\n")
         print("Please choose:\ny = carry on playing \nr = reset \nq = quit\n")
@@ -240,9 +240,9 @@ class Hangman():
 
     def setup_game_info(self):
         """
-        Quick instructions for the user, letting them know
+        Quick instructions for the player, letting them know
         the total attempts they have and how to access other
-        information/functionality
+        information/functionality.
         """
         print(GAME_INFO)
         print(f"Attempts: {self.attempts_left}\n")
@@ -260,7 +260,7 @@ class Hangman():
     def special_inputs(self, user_input):
         """
         Allows the option to view help or quit
-        the game on demand
+        the game on demand.
         """
         if user_input == "help":
             self.display_instructions()
@@ -274,7 +274,7 @@ class Hangman():
         """
         Retrieve the difficulty, word, hint and masked word
         ready to be initialised in the play_hangman function
-        below
+        below.
         """
         self.attempts_left = self.set_difficulty()
         self.selected_word, self.hint = self.choose_random_word().split(":")
@@ -284,7 +284,7 @@ class Hangman():
         self.setup_game_info()
 
     def play_hangman(self):
-        '''
+        """
         Retrieve the initials values from game setup. Whilst the
         game is not complete ( word not found or attempts used up)
         - check the input against the word and record the input
@@ -294,7 +294,7 @@ class Hangman():
         If word guessed call the game won function
         If attempts up, call the game over function.
         Give the option to play again on game won or over.
-        '''
+        """
 
         self.game_setup()
         while self.attempts_left > 0:
