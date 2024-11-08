@@ -295,7 +295,6 @@ class Hangman():
         If attempts up, call the game over function.
         Give the option to play again on game won or over.
         """
-
         self.game_setup()
         while self.attempts_left > 0:
             self.game_status()

@@ -117,7 +117,7 @@ The main page presents the player (user) with a python console in which the game
 
 ![welcome - select difficulty](readme-images/welcome-screen.png)
 
-**Please note:** For the purposes of this project, the following values have used to determine the difficulty:
+**Please note:** For the purposes of this project, the following values have been used to determine the difficulty:
 
 1 = easy (12 attempts)
 
@@ -306,10 +306,10 @@ GitHub has provided step by step instructions on how to do this [here.](https://
 ### Frameworks, Libraries and Programs Used
 
 * #### The following libraries were used:
-    * Import random
-    * Import sys
-    * Import gspread
-     from google.oauth2.service_account import Credentials
+    * ```Import random``` - to select the random word.
+    * ```Import sys``` - to implement the quit functionality.
+    * ```Import gspread```
+     ```from google.oauth2.service_account import Credentials``` - for the API.
 
 * #### The following requirements were defined in the requirements.txt file for API connection to google sheets (also needed for deployment):
 
@@ -393,8 +393,7 @@ GitHub has provided step by step instructions on how to do this [here.](https://
     
     ```
       file = open("instructions.txt", 'r')
-        instructions = file.read()
-        print(instructions)
+        print(file.read())
         file.close()
     ```
   * This code has been used in the  ```display_instructions``` function.
@@ -419,7 +418,7 @@ As this project was my first full exposure to indept python, it has brought with
 
 I have endeavoured to implement any guidance given on my previous projects with the view of incorporating this as part of my standard coding practice.
 
-The main take away point from this project has been around the value of breaking the requirements down into smaller manageable tasks on a "to do" list. Having this in place from the beginning has enabled me to build up the project step by step without having to think of what do next. 
+The main take away point from this project has been around the value of breaking the requirements down into smaller manageable tasks on a "to do" list. Having this in place from the beginning has enabled me to build up the project step by step using a methodical approach. 
 
 This has been taken on board with a view to maintaining this on future projects.
 
