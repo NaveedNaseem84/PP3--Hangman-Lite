@@ -60,7 +60,7 @@ The intended purpose is to provide a clean take on the all-time class game, prov
   
  * Overall Credit
 
-### [Personal Summary ](#personal-summary-1)
+### [Personal Summary](#personal-summary-1)
 
 #
  
